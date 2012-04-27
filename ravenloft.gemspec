@@ -2,7 +2,7 @@
 require File.expand_path('../lib/ravenloft/version', __FILE__)
 
 Gem::Specification.new do |gem|
-  gem.authors       = ["George Avramidis"]
+  gem.authors       = ["George Avramidis", "Kostas Karachalios"]
   gem.email         = ["avramidg@gmail.com"]
   gem.description   = %q{D&D Information parser}
   gem.summary       = %q{Ravenloft will parse all the information available form D&D insider site. An active subscription is required.}
