@@ -1,14 +1,26 @@
+require 'singleton'
+
 module Ravenloft
   SEARCH_URL = URL + "CompendiumSearch.asmx"
   LOGIN_URL = URL + "login.aspx?page=monster&id=339"
 
+  class NotLoggedInError < StanardError
+  end
+
+  class AuthenticationError < StandardError
+  end
+
   extend self 
+
   def login!(username, password)
-    Manager.new.tap {|m|
+    Manager.instance.tap {|m|
       m.login!(username, password)
     }
   end
+
+
   class Manager
+    include Singleton
 
     attr_reader :logged_in
 
@@ -18,8 +30,8 @@ module Ravenloft
     end
 
 
-    def login!(username, password)
-
+    def login!(username, password, opts = {})
+      return if !opts[:force] or @logged_in
       # get event validation and viewstate
       html = Nokogiri::HTML(open(LOGIN_URL).read)
 
@@ -34,19 +46,25 @@ module Ravenloft
       url = URI.parse(LOGIN_URL)
       resp, data = Net::HTTP.post_form(url, params)
 
+
       c = resp.get_fields('set-cookie')
+
+      raise AuthenticationError unless c
+
       planet_cookie = c.find {|i| i =~ /iPlanet/}.split(';').first
       if planet_cookie
         @cookies << planet_cookie
         @logged_in = true
       end
 
-      @cookies
+      self
     end
 
 
     # @return [StringIO] the D&D Insider Response
     def get_response(type, id)
+      raise NotLoggedInError.new unless @logged_in
+
       url = URL + "#{type}.aspx?id=#{id}"
       open(url, "Cookie" => @cookies.join('; '))
     end
