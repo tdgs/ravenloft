@@ -4,7 +4,7 @@ module Ravenloft
   SEARCH_URL = URL + "CompendiumSearch.asmx"
   LOGIN_URL = URL + "login.aspx?page=monster&id=339"
 
-  class NotLoggedInError < StanardError
+  class NotLoggedInError < StandardError
   end
 
   class AuthenticationError < StandardError
