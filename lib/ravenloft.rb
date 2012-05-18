@@ -7,4 +7,4 @@ require 'open-uri'
 require 'net/http'
 require 'nokogiri'
 require "ravenloft/version"
-require 'ravenloft/login'
+require 'ravenloft/manager'

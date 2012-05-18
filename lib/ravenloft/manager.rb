@@ -12,10 +12,15 @@ module Ravenloft
 
   extend self 
 
-  def login!(username, password)
+  def login!
     Manager.instance.tap {|m|
-      m.login!(username, password)
+      m.login!
     }
+  end
+
+  def read_credentials
+    h = YAML.load(File.open('dnd_insider.yml'))
+    h["dnd_insider"]
   end
 
 
@@ -27,17 +32,38 @@ module Ravenloft
     def initialize
       @cookies = []
       @logged_in = false
+      @credentials = nil
     end
 
+    def credentials
+      @credentials ||= Ravenloft.read_credentials
+    end
 
-    def login!(username, password, opts = {})
-      return if !opts[:force] or @logged_in
+    def username
+      credentials["username"]
+    end
+
+    def password
+      credentials["password"]
+    end
+
+    def login!(opts = {})
+      if @logged_in
+        return self unless opts[:force]
+      end
+
+      u = opts[:username] || username
+      p = opts[:password] || password
+
+
+      @logged_in = false  
+
       # get event validation and viewstate
       html = Nokogiri::HTML(open(LOGIN_URL).read)
 
       params = {
-        "email" => username,
-        "password" =>  password,
+        "email" => u,
+        "password" =>  p,
         "InsiderSignin" => "Sign In",
         "__EVENTVALIDATION" => event_validation(html),
         "__VIEWSTATE" => viewstate(html)
@@ -76,6 +102,10 @@ module Ravenloft
       Nokogiri::HTML(resp.read).at_css("#detail").inner_html.strip
     end
 
+    def reset!
+      self.send(:initialize)
+    end
+
     private 
 
     def viewstate(html)
@@ -85,6 +115,5 @@ module Ravenloft
     def event_validation(html)
       html.at_css("input[name=__EVENTVALIDATION]")[:value]
     end
-
   end
 end
