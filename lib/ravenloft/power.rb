@@ -101,9 +101,11 @@ module Ravenloft
       children.shift if children[0].text.strip.empty?
 
       self.range = children.shift.text
-      mod = children.shift
-      if self.range == "Ranged" and mod
-        self.range_modifier = mod.text.strip
+      if mod = children.shift
+        case self.range
+        when "Ranged", "Area"
+          self.range_modifier = mod.text.strip
+        end
       end
     end
 

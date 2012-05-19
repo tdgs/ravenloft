@@ -65,4 +65,22 @@ describe Ravenloft::Power do
       its(key) { should == value }
     end
   end
+
+  context "on Fireball" do
+    before(:each) do
+      mock_manager.stub(:get).with('power', 1553) do
+        File.read('spec/fixtures/fireball.html')
+      end
+    end
+
+    fireball = Psych.load_file('spec/fixtures/fireball.yml')
+
+    subject do
+      Ravenloft::Power.new(1553).tap(&:get!).tap(&:parse!)
+    end
+
+    fireball.each do |key, value|
+      its(key) { should == value }
+    end
+  end
 end

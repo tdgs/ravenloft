@@ -1,0 +1,26 @@
+---
+:name: Fireball
+:klass: Wizard
+:attack_utility: Attack
+:level: 5
+:flavor: A globe of orange flame coalesces in your hand. You hurl it at your enemies,
+  and it explodes on impact.
+:frequency: Daily
+:type: Standard Action
+:keywords:
+- Arcane
+- Evocation
+- Fire
+- Implement
+:range: Area
+:range_modifier: burst 3 within 20 squares
+:prerequisite:
+:target: Each creature in the burst
+:attack: Intelligence vs. Reflex
+:hit: 4d6 + Intelligence modifier fire damage.
+:miss: Half damage.
+:sustain:
+:effects:
+:special:
+:published_in: Published in Player's Handbook, page(s) 161, Heroes of the Fallen
+  Lands, page(s) 212, Class Compendium.
