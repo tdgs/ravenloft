@@ -57,9 +57,16 @@ module Ravenloft
         extract_hit!(elem)
       when elem.at_css('b') && elem.at_css('b').text =~ /^miss$/i
         extract_miss!(elem)
+      when elem.at_css('b') && elem.at_css('b').text =~ /^prerequisite$/i
+        extract_prerequisite!(elem)
       when elem.at_css('b') && elem.at_css('b').text =~ /^(at-will|encounter|daily)$/i
         extract_power_stats!(elem)
       end
+    end
+
+    def extract_prerequisite!(elem)
+      elem.children.find{|c| c.name == 'b'}.remove
+      self.prerequisite = elem.text.strip.sub(/^: ?/, '')
     end
 
     def extract_attack!(elem)
@@ -95,11 +102,8 @@ module Ravenloft
 
       self.range = children.shift.text
       mod = children.shift
-      case self.range
-      when "Ranged"
-        self.range_modifier = mod.text.strip if mod
-      when "Melee"
-        self.range_modifier = "1"
+      if self.range == "Ranged" and mod
+        self.range_modifier = mod.text.strip
       end
     end
 

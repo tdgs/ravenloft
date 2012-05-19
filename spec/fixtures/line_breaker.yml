@@ -1,0 +1,23 @@
+---
+:name: Line Breaker
+:klass: Fighter
+:attack_utility: Utility
+:level: 6
+:flavor: You turn aside your enemies’ attacks as you advance across the battlefield.
+:frequency: Encounter
+:type: Move Action
+:keywords:
+- Martial
+:range: Personal
+:range_modifier:
+:prerequisite: You must have training in Athletics.
+:target:
+:attack:
+:hit:
+:miss:
+:sustain:
+:effects:
+- You move up to your speed. During this movement, you gain a +5 power bonus to
+  all defenses against opportunity attacks.
+:special:
+:published_in: Published in Heroes of the Fallen Lands, page(s) 158.

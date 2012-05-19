@@ -12,7 +12,8 @@
 - Radiant
 - Weapon
 :range: Melee
-:range_modifier: '1'
+:range_modifier:
+:prerequisite:
 :target: One creature
 :attack: Wisdom vs. AC
 :hit: 2[W] + Wisdom modifier radiant damage.

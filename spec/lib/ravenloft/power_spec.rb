@@ -47,4 +47,22 @@ describe Ravenloft::Power do
       its(key) { should == value }
     end
   end
+
+  context "on Line Breaker" do
+    before(:each) do
+      mock_manager.stub(:get).with('power', 12700) do
+        File.read('spec/fixtures/line_breaker.html')
+      end
+    end
+
+    line_breaker = Psych.load_file('spec/fixtures/line_breaker.yml')
+
+    subject do
+      Ravenloft::Power.new(12700).tap(&:get!).tap(&:parse!)
+    end
+
+    line_breaker.each do |key, value|
+      its(key) { should == value }
+    end
+  end
 end
