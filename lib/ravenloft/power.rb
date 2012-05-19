@@ -5,7 +5,7 @@ module Ravenloft
   class Power < OpenStruct
 
     attr_accessor :uid, :doc
-    
+
     def initialize(uid)
       super(Hash.new)
       @uid = uid
@@ -14,7 +14,7 @@ module Ravenloft
     def self.manager
       Ravenloft::Manager.instance.login!
     end
-   
+
     def get!
       @doc = self.class.get(@uid)
     end
@@ -24,7 +24,7 @@ module Ravenloft
 
       # Replace all &nbsp; because Nokogiri replaces them with \u00a0 which
       # String#strip does not count as a space.
-      response.gsub!(/&nbsp;/, ' ') 
+      response.gsub!(/&nbsp;/, ' ')
 
       Nokogiri::HTML::DocumentFragment.parse(response)
     end
