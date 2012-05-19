@@ -51,9 +51,30 @@ module Ravenloft
         extract_special!(elem)
       when elem.at_css('b') && elem.at_css('b').text =~ /^effect$/i
         extract_effect!(elem)
+      when elem.at_css('b') && elem.at_css('b').text =~ /^attack$/i
+        extract_attack!(elem)
+      when elem.at_css('b') && elem.at_css('b').text =~ /^hit$/i
+        extract_hit!(elem)
+      when elem.at_css('b') && elem.at_css('b').text =~ /^miss$/i
+        extract_miss!(elem)
       when elem.at_css('b') && elem.at_css('b').text =~ /^(at-will|encounter|daily)$/i
         extract_power_stats!(elem)
       end
+    end
+
+    def extract_attack!(elem)
+      elem.children.find{|c| c.name == 'b'}.remove
+      self.attack = elem.text.strip.sub(/^: ?/, '')
+    end
+
+    def extract_hit!(elem)
+      elem.children.find{|c| c.name == 'b'}.remove
+      self.hit = elem.text.strip.sub(/^: ?/, '')
+    end
+
+    def extract_miss!(elem)
+      elem.children.find{|c| c.name == 'b'}.remove
+      self.miss = elem.text.strip.sub(/^: ?/, '')
     end
 
     def extract_power_stats!(elem)
@@ -74,7 +95,12 @@ module Ravenloft
 
       self.range = children.shift.text
       mod = children.shift
-      self.range_modifier = mod.text.strip if mod
+      case self.range
+      when "Ranged"
+        self.range_modifier = mod.text.strip if mod
+      when "Melee"
+        self.range_modifier = "1"
+      end
     end
 
     def extract_effect!(elem)

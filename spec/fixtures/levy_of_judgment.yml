@@ -1,0 +1,25 @@
+---
+:name: Levy of Judgment
+:klass: Cleric
+:attack_utility: Attack
+:level: 1
+:flavor: Divine energy crackles from your weapon as you deliver punishing judgment
+  upon your enemy.
+:frequency: Daily
+:type: Standard Action
+:keywords:
+- Divine
+- Radiant
+- Weapon
+:range: Melee
+:range_modifier: '1'
+:target: One creature
+:attack: Wisdom vs. AC
+:hit: 2[W] + Wisdom modifier radiant damage.
+:miss: Half damage.
+:sustain:
+:effects:
+- Once before the end of the encounter, when an ally misses the target with
+  an attack roll, you can use a free action to let that ally reroll the attack roll.
+:special:
+:published_in: Published in Heroes of the Fallen Lands, page(s) 90.

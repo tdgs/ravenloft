@@ -16,6 +16,7 @@
 :range_modifier: '20'
 :target: One creature
 :attack:
+:hit:
 :miss:
 :sustain:
 :effects:

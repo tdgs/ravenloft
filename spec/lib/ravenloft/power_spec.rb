@@ -29,4 +29,22 @@ describe Ravenloft::Power do
       its(key) { should == value }
     end
   end
+
+  context "on Levy of Judgment" do
+    before(:each) do
+      mock_manager.stub(:get).with('power', 12605) do
+        File.read('spec/fixtures/levy_of_judgment.html')
+      end
+    end
+
+    levy_of_judgment = Psych.load_file('spec/fixtures/levy_of_judgment.yml')
+
+    subject do
+      Ravenloft::Power.new(12605).tap(&:get!).tap(&:parse!)
+    end
+
+    levy_of_judgment.each do |key, value|
+      its(key) { should == value }
+    end
+  end
 end
