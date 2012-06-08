@@ -47,6 +47,7 @@ module Ravenloft
       credentials["password"]
     end
 
+    # @return [Ravenloft::Manager]
     def login!(opts = {})
       if @logged_in
         return self unless opts[:force]
@@ -87,12 +88,17 @@ module Ravenloft
     end
 
 
-    # @return [StringIO] the D&D Insider Response
-    def get_response(type, id)
+    def get_url(url)
       raise NotLoggedInError.new unless @logged_in
 
-      url = URL + "#{type}.aspx?id=#{id}"
       open(url, "Cookie" => @cookies.join('; '))
+    end
+
+    # @return [StringIO] the D&D Insider Response
+    def get_response(type, id)
+
+      url = URL + "#{type}.aspx?id=#{id}"
+      get_url(url)
     end
 
 
