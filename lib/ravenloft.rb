@@ -8,4 +8,4 @@ require 'net/http'
 require 'nokogiri'
 require "ravenloft/version"
 require 'ravenloft/manager'
-require 'ravenloft/search'
+require 'ravenloft/searcher'
