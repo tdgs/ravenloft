@@ -10,7 +10,7 @@ module Ravenloft
   class AuthenticationError < StandardError
   end
 
-  extend self 
+  extend self
 
   def login!
     Manager.instance.tap {|m|
