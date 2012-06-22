@@ -10,7 +10,7 @@ module Ravenloft
   class AuthenticationError < StandardError
   end
 
-  extend self 
+  extend self
 
   def login!
     Manager.instance.tap {|m|
@@ -86,7 +86,6 @@ module Ravenloft
 
       self
     end
-
 
     def get_url(url)
       raise NotLoggedInError.new unless @logged_in

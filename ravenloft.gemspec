@@ -16,7 +16,9 @@ Gem::Specification.new do |gem|
   gem.version       = Ravenloft::VERSION
 
 	gem.add_dependency "nokogiri"
-	
+  gem.add_dependency "data_mapper"
+  gem.add_dependency "dm-sqlite-adapter"
+
 	gem.add_development_dependency "rspec"
 	gem.add_development_dependency "pry"
 	gem.add_development_dependency "guard-rspec"
