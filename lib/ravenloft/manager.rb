@@ -87,7 +87,6 @@ module Ravenloft
       self
     end
 
-
     def get_url(url)
       raise NotLoggedInError.new unless @logged_in
 
